@@ -16,3 +16,6 @@ auth.json
 storage_state.json
 config/user.yaml
 public-export/
+*.html
+!site/*.html
+!site/**/*.html
