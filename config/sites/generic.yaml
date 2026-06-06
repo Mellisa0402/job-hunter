@@ -1,0 +1,70 @@
+# ================================================================
+# generic.yaml — 新网站适配模板
+# 复制此文件为 your-site.yaml，填入对应字段即可适配新网站。
+#
+# Template for adapting a new job site.
+# Copy this file to your-site.yaml and fill in the fields.
+# ================================================================
+
+# name: "Company Name"        # 网站显示名称
+# domains:                     # 匹配的域名列表（任意匹配一个即生效）
+#   - jobs.example.com
+# locale: en-US                # 浏览器 locale（zh-CN / en-US）
+
+# list:
+#   paths:                     # 列表页路径（按招聘类型区分）
+#     full_time: /careers/search
+#     campus: /careers/campus/search
+#   params:                    # URL 查询参数（固定参数直接写值）
+#     keywords: ""
+#     location: "{city_code}"  # {city_code} 等变量会在运行时替换
+#     page: "{page}"
+#     token: "{token}"
+#   pagination:
+#     strategy: query_param     # query_param（翻页参数）| click（点"下一页"按钮）
+#     param: page               # 翻页参数名
+#     max_pages: 200
+#   stop_conditions:            # 满足任一条件即停止翻页
+#     - type: text_contains     # 页面出现此文字
+#       value: "No results found"
+#     - type: marker_count_is_zero  # 岗位标识符数量为0
+#       marker: "Job ID:"
+#   selectors:
+#     job_link: 'a[href*="/job/"]'           # 岗位链接的CSS选择器
+#     job_card: 'li, [class*=card]'          # 岗位卡片的CSS选择器（用于提取摘要）
+#   city_codes:                # 城市名 → 网站内部城市代码的映射
+#     Shanghai: "310000"       # 如果网站不使用城市代码而是城市名搜索，则不需要
+#     Beijing: "110000"
+
+# detail:
+#   path_template: "/careers/job/{id}"   # 详情页路径模板，{id} 会被替换
+#   extraction:
+#     title:
+#       strategy: first_line_excluding   # 取第一个长度>3的行，跳过指定前缀
+#       exclude_prefixes:
+#         - "Full-time"
+#         - "Intern"
+#     job_id:
+#       strategy: line_containing         # 在包含指定标记的行中提取
+#       markers:
+#         - "Job ID:"
+#       separator: ":"
+#     description:
+#       strategy: between_markers         # 在两个标记段落之间提取
+#       start_markers:
+#         - "Job Description"
+#         - "Responsibilities"
+#       end_markers:
+#         - "Requirements"
+#         - "Qualifications"
+#       max_lines: 30
+#     requirements:
+#       strategy: after_marker            # 标记之后提取
+#       markers:
+#         - "Requirements"
+#         - "Qualifications"
+#       max_lines: 25
+
+# auth:
+#   type: token               # token（URL参数携带）| session（storage_state.json）| none
+#   token_param: token        # token 参数名（type=token 时需要）

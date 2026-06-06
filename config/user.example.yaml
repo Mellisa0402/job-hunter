@@ -1,0 +1,127 @@
+# ================================================================
+# user.example.yaml — 用户配置模板
+# 复制此文件为 user.yaml 并填入你的个人信息。
+# user.yaml 已在 .gitignore 中，不会被提交到 git。
+#
+# Copy this file to user.yaml and fill in your details.
+# user.yaml is gitignored and will not be committed.
+# ================================================================
+
+# ---- 个人信息 / Profile ----
+profile:
+  name: ""                # 你的姓名 / Your name
+  resume: "./resume.pdf"  # 简历文件路径（PDF 或文本），相对于项目根目录
+                          # Path to your resume file, relative to project root
+
+# ---- 求职偏好 / Preferences ----
+preferences:
+  # 目标城市（任意城市名，不限于特定网站的城市代码）
+  # Target cities (any city names, not tied to site-specific codes)
+  cities:
+    - Shanghai
+    - Hangzhou
+
+  # 招聘类型：full_time(社招), campus(校招), intern(实习)
+  # Job types to search for
+  job_types:
+    - full_time
+    - campus
+
+  # 你的资历水平：junior(0-2年), mid(3-5年), senior(6年+)
+  # Your seniority level
+  seniority: junior
+
+  # 目标岗位方向（用于 AI 语义匹配，帮助系统理解你的求职方向）
+  # Target role directions for AI semantic matching
+  target_roles:
+    - "Software Engineer"
+    - "AI/ML Engineer"
+
+  # 最低匹配分数阈值（低于此分的岗位不出现在报告中）
+  # Minimum match score for inclusion in the report
+  min_score: 50
+
+# ---- 匹配设置 / Matching ----
+matching:
+  # 匹配模式：ai（Claude API 语义匹配，精度最高）| keyword（离线关键词匹配）
+  # Matching mode: ai (Claude API, best accuracy) | keyword (offline)
+  mode: ai
+
+  # ---- 关键词匹配设置（仅 mode=keyword 时生效） ----
+  # Keyword matching settings (only used when mode=keyword)
+  keywords:
+    # 排除标题：标题包含这些词的岗位自动跳过
+    # Auto-skip jobs whose titles contain these keywords
+    exclude_titles:
+      - Architect
+      - Director
+      - VP
+      - Senior
+      - Staff
+      - Principal
+      - 高级
+      - 资深
+      - 专家
+      - 总监
+      - 负责人
+
+    # 技能分类：定义你自己的技能关键词
+    # Skill categories: define your own skill keywords
+    # 每个分类下 must = 必备技能（命中+10分），nice = 加分技能（命中+5分）
+    # Each category: must = required (+10), nice = bonus (+5)
+    skill_categories:
+      my_skills:
+        must:
+          - Python
+          - SQL
+        nice:
+          - Docker
+          - AWS
+
+  # 资历过滤：根据岗位标题排除超出经验的岗位
+  # Seniority-based title filters
+  seniority_filters:
+    junior:
+      - Senior
+      - Staff
+      - Principal
+      - 高级
+      - 资深
+      - 专家
+      - 总监
+      - Leader
+      - Manager
+      - Director
+      - VP
+      - 架构师
+    mid:
+      - Staff
+      - Principal
+      - 专家
+      - 总监
+      - Director
+      - VP
+    senior: []  # 资深级别不排除任何标题
+
+  # 城市加分权重：你想去的城市加多少分
+  # City bonus weights: how many bonus points for each city
+  city_bonus:
+    Shanghai: 20
+    Hangzhou: 30
+    Beijing: 10
+    Shenzhen: 10
+
+  # 来源加分：校招/实习岗位额外加分
+  # Source bonus: extra points for campus/intern positions
+  source_bonus:
+    campus: 10
+    intern: 5
+
+# ---- 输出设置 / Output ----
+output:
+  dir: "./output"     # 输出目录 / Output directory
+  format: pdf          # 输出格式：pdf / html
+
+  # 投递策略建议（可选，留空则使用通用模板）
+  # Custom strategy text for the report (optional, uses generic template if empty)
+  strategy_text: ""

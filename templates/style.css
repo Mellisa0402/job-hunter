@@ -1,0 +1,348 @@
+@page { size: A4; margin: 14mm 12mm; }
+
+:root {
+  --paper: #f6f1e8;
+  --panel: #fffaf2;
+  --ink: #1f2933;
+  --muted: #6b7280;
+  --line: #d7c9b1;
+  --accent: #b85c38;
+  --accent-soft: #e9c7a7;
+  --accent-deep: #7c3f25;
+  --good: #2f6f4f;
+  --good-soft: #d8eadc;
+  --shadow: rgba(103, 74, 43, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top right, rgba(184, 92, 56, 0.10), transparent 24%),
+    radial-gradient(circle at left 20%, rgba(47, 111, 79, 0.08), transparent 20%),
+    var(--paper);
+}
+
+.hero,
+.summary-panel,
+.notes-panel,
+.job-card,
+.strategy-card {
+  break-inside: avoid;
+}
+
+.hero {
+  background: linear-gradient(135deg, rgba(255, 250, 242, 0.96), rgba(244, 232, 214, 0.96));
+  border: 1px solid rgba(124, 63, 37, 0.12);
+  border-radius: 18px;
+  padding: 20px 20px 16px;
+  box-shadow: 0 10px 24px var(--shadow);
+}
+
+.hero-kicker {
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  color: var(--accent-deep);
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #231815;
+}
+
+.subtitle {
+  margin-top: 10px;
+  max-width: 420px;
+  color: #4b5563;
+  font-size: 12px;
+}
+
+.hero-grid,
+.flow-grid,
+.summary-grid,
+.top-picks {
+  display: grid;
+  gap: 10px;
+}
+
+.hero-grid {
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 18px;
+}
+
+.hero-card,
+.flow-card,
+.summary-item,
+.pick-card {
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(124, 63, 37, 0.10);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.hero-card.accent {
+  background: linear-gradient(180deg, rgba(184, 92, 56, 0.14), rgba(255, 255, 255, 0.92));
+}
+
+.hero-label,
+.panel-title,
+.summary-city,
+.pick-rank,
+.job-rank {
+  color: var(--accent-deep);
+}
+
+.hero-label,
+.summary-city,
+.pick-rank {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.hero-value {
+  margin-top: 6px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1f2933;
+}
+
+.hero-note,
+.flow-desc,
+.summary-label,
+.pick-meta,
+.pick-reason,
+.section-subtitle,
+.score-caption,
+.footer,
+.muted {
+  color: var(--muted);
+}
+
+.hero-note,
+.flow-desc,
+.summary-label,
+.pick-reason,
+.score-caption,
+.job-link,
+.footer {
+  font-size: 10px;
+}
+
+.summary-panel,
+.notes-panel {
+  margin-top: 14px;
+  background: rgba(255, 250, 242, 0.78);
+  border: 1px solid rgba(124, 63, 37, 0.10);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.panel-title {
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.flow-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.flow-no {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 22px;
+  color: var(--accent);
+}
+
+.flow-title {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.summary-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.summary-num {
+  margin-top: 8px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.notes-panel {
+  padding-top: 12px;
+}
+
+.note-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(124, 63, 37, 0.16);
+}
+
+.note-key {
+  min-width: 68px;
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+.note-value {
+  flex: 1;
+}
+
+.top-picks {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pick-title {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #231815;
+}
+
+.section-title {
+  margin: 20px 0 6px;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #231815;
+}
+
+.section-subtitle {
+  margin-bottom: 10px;
+}
+
+.job-card {
+  position: relative;
+  margin-bottom: 10px;
+  padding: 14px 14px 12px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(124, 63, 37, 0.10);
+  border-radius: 16px;
+}
+
+.job-rank {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.job-title {
+  max-width: 78%;
+  font-size: 14px;
+  font-weight: 700;
+  color: #231815;
+}
+
+.job-score {
+  background: var(--good-soft);
+  color: var(--good);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.job-meta,
+.job-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.job-meta {
+  margin-top: 8px;
+}
+
+.job-meta span,
+.job-tag {
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 9px;
+}
+
+.job-meta span {
+  background: rgba(31, 41, 51, 0.05);
+  color: #46515c;
+}
+
+.score-track {
+  margin-top: 10px;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(124, 63, 37, 0.10);
+}
+
+.score-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), #d98758);
+}
+
+.score-caption {
+  margin-top: 6px;
+}
+
+.job-tags {
+  margin-top: 8px;
+}
+
+.job-tag {
+  background: rgba(184, 92, 56, 0.10);
+  color: var(--accent-deep);
+}
+
+.job-link {
+  margin-top: 10px;
+  word-break: break-all;
+}
+
+.job-link a {
+  color: var(--accent-deep);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.strategy-card {
+  margin-bottom: 8px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(124, 63, 37, 0.10);
+  border-radius: 14px;
+}
+
+.footer {
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(124, 63, 37, 0.10);
+  text-align: center;
+}
+
+.page-break {
+  page-break-before: always;
+}

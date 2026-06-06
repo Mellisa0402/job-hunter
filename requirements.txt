@@ -1,0 +1,4 @@
+playwright>=1.40
+pdfplumber>=0.10
+anthropic>=0.39
+pyyaml>=6.0

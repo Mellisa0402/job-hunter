@@ -1,0 +1,83 @@
+# ================================================================
+# ByteDance (jobs.bytedance.com) — 已验证 / Verified
+# ================================================================
+
+name: "ByteDance"
+domains:
+  - jobs.bytedance.com
+
+locale: zh-CN
+
+list:
+  paths:
+    full_time: /referral/pc/position
+    campus: /referral/campus/pc/position
+  params:
+    keywords: ""
+    category: ""
+    location: "{city_code}"
+    current: "{page}"
+    limit: "10"
+    functionCategory: ""
+    tag: ""
+    token: "{token}"
+  pagination:
+    strategy: query_param      # page number in query parameter
+    param: current
+    max_pages: 300
+  stop_conditions:
+    - type: text_contains
+      value: "暂无职位"
+    - type: marker_count_is_zero
+      marker: "职位 ID："
+  selectors:
+    job_link: 'a[href*="/position/"]'
+    job_card: 'li, [class*=item], [class*=card], [class*=row]'
+  city_codes:
+    Hangzhou: CT_52
+    Shanghai: CT_22
+    Chengdu: CT_125
+    Beijing: CT_1
+    Shenzhen: CT_86
+    Guangzhou: CT_71
+
+detail:
+  path_template: "/referral/{type}/position/{id}/detail"
+  extraction:
+    title:
+      strategy: first_line_excluding
+      exclude_prefixes:
+        - "社招"
+        - "校招"
+        - "登录"
+        - "内推"
+        - "Sign"
+    job_id:
+      strategy: line_containing
+      markers:
+        - "职位 ID："
+        - "Job ID:"
+      separator: "："
+      fallback_separator: ":"
+    description:
+      strategy: between_markers
+      start_markers:
+        - "职位描述"
+        - "岗位职责"
+        - "Responsibilities"
+      end_markers:
+        - "职位要求"
+        - "任职要求"
+        - "Qualifications"
+      max_lines: 30
+    requirements:
+      strategy: after_marker
+      markers:
+        - "职位要求"
+        - "任职要求"
+        - "Qualifications"
+      max_lines: 25
+
+auth:
+  type: token               # token in URL query string
+  token_param: token

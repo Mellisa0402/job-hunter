@@ -1,0 +1,66 @@
+# ================================================================
+# TikTok (lifeattiktok.com) — 已验证 / Verified
+# ================================================================
+
+name: "TikTok"
+domains:
+  - lifeattiktok.com
+
+locale: en-US
+
+list:
+  paths:
+    full_time: /referral/tiktok/position
+    campus: /referral/tiktok/campus/position
+  params:
+    keywords: ""
+    category: ""
+    location: "{city_code}"
+    current: "{page}"
+    limit: "10"
+    functionCategory: ""
+    tag: ""
+    token: "{token}"
+  pagination:
+    strategy: query_param
+    param: current
+    max_pages: 300
+  stop_conditions:
+    - type: text_contains
+      value: "No jobs found"
+    - type: marker_count_is_zero
+      marker: "Job ID:"
+  selectors:
+    job_link: 'a[href*="/position/"]'
+    job_card: 'li, [class*=item], [class*=card], [class*=row]'
+  city_codes: {}              # TikTok uses free-text location, no city codes
+
+detail:
+  path_template: "/referral/tiktok/position/{id}/detail"
+  extraction:
+    title:
+      strategy: first_line_excluding
+      exclude_prefixes:
+        - "Sign"
+        - "Login"
+    job_id:
+      strategy: line_containing
+      markers:
+        - "Job ID:"
+      separator: ":"
+    description:
+      strategy: between_markers
+      start_markers:
+        - "Responsibilities"
+      end_markers:
+        - "Qualifications"
+      max_lines: 30
+    requirements:
+      strategy: after_marker
+      markers:
+        - "Qualifications"
+      max_lines: 25
+
+auth:
+  type: token
+  token_param: token

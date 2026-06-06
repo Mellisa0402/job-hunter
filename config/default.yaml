@@ -1,0 +1,67 @@
+# 默认配置 — 可根据求职方向修改
+
+# 目标城市及其代码（字节跳动内部城市代码）
+cities:
+  杭州: CT_52
+  上海: CT_22
+  成都: CT_125
+  北京: CT_1
+  深圳: CT_86
+  广州: CT_71
+
+# 招聘类型
+job_types:
+  - 社招
+  - 校招
+
+# 关键词体系（覆盖主流求职方向）
+keywords:
+  # 硬性排除：标题含这些词的岗位直接跳过
+  exclude_titles:
+    - 架构师
+    - Leader
+    - 高级
+    - 资深
+    - Senior
+    - Staff
+    - Principal
+    - 专家
+    - 总监
+    - 负责人
+    - Director
+    - Manager
+    - VP
+
+  # AI/技术方向
+  ai_tech:
+    must: [AI, LLM, 大模型, Agent, Prompt, AIGC, 机器学习, 深度学习, NLP, RAG]
+    nice: [Python, PyTorch, TensorFlow, Transformer, 微调, SFT, RLHF]
+
+  # 运营方向
+  operations:
+    must: [运营, 产品, 数据, 内容, 用户, 策略]
+    nice: [增长, 转化, 留存, 指标, ROI, DAU, MAU]
+
+  # 数据方向
+  data:
+    must: [数据, 分析, SQL, Excel, 可视化]
+    nice: [Python, BI, Tableau, 数据仓库, ETL, 指标体系]
+
+  # 内容方向
+  content:
+    must: [内容, 文案, 视频, 短视频, 直播]
+    nice: [抖音, 剪映, 脚本, 选题, 爆款]
+
+# 城市加分权重（越高的城市越优先）
+city_bonus:
+  杭州: 30
+  上海: 20
+  成都: 15
+  北京: 10
+  深圳: 10
+  广州: 5
+
+# 来源加分
+source_bonus:
+  校招: 10
+  实习: 5

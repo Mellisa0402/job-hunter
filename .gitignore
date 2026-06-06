@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.pytest_cache/
+.claude/
+output/
+*.pdf
+*.html
+jobs_raw.json
+jobs_scored.json
+jobs_raw_ckpt_*.json
+.DS_Store
+.env
+auth.json
+storage_state.json
+config/user.yaml
