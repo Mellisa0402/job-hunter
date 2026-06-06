@@ -7,6 +7,8 @@ __pycache__/
 output/
 *.pdf
 *.html
+!site/*.html
+!site/**/*.html
 jobs_raw.json
 jobs_scored.json
 jobs_raw_ckpt_*.json
