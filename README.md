@@ -22,6 +22,10 @@ The output is meant to feel like a shortlist, not a data dump.
 
 ![Handbook preview](./assets/handbook-preview.svg)
 
+Public sample:
+
+- sample handbook page: `examples/public-demo.html`
+
 What the handbook already highlights:
 
 - a simple 3-step story: collect → match → report
@@ -43,6 +47,12 @@ python3 run.py --url "https://jobs.example.com/..." --resume ./resume.pdf
 ```
 
 You fill in your own profile in `config/user.yaml`, then run one command.
+
+## Public Demo
+
+If you want to see the final result first, open:
+
+- `examples/public-demo.html`
 
 ## How It Flows
 
