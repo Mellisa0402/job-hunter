@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>job-hunter — One command. Full pipeline.</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{accent:{DEFAULT:'#FF5A1F',50:'#fff4ed',100:'#ffe8d5',200:'#fed0aa',300:'#fd9d5c',400:'#fb7a2e',500:'#FF5A1F',600:'#e04a14',700:'#c13c0e',800:'#9a300d',900:'#7c2a10'},surface:{DEFAULT:'#111113',50:'#151518',100:'#1a1a1e',200:'#222226',300:'#2a2a2e'}},fontFamily:{sans:['Inter','system-ui','-apple-system','sans-serif'],mono:['JetBrains Mono','SF Mono','Menlo','monospace']},maxWidth:{page:'1280px'},spacing:{18:'4.5rem',22:'5.5rem',30:'7.5rem'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+::selection{background:rgba(255,90,31,0.25);color:#fff}
+*:focus-visible{outline:2px solid #FF5A1F;outline-offset:2px;border-radius:4px}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.15)}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.grad-line{height:3px;background:linear-gradient(90deg,#FF5A1F,rgba(255,90,31,0.1));width:80px;border-radius:2px;margin-bottom:16px}
+.pill{border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;white-space:nowrap}
+.pill-subtle{border:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.4)}
+.pill-match{border:1px solid rgba(34,197,94,0.2);color:#22c55e;background:rgba(34,197,94,0.06)}
+.pill-miss{border:1px solid rgba(239,68,68,0.2);color:#ef4444;background:rgba(239,68,68,0.06)}
+.chaos-layer{position:absolute;inset:0}
+.chaos-card{position:absolute;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px}
+.chaos-card .line{height:4px;background:rgba(255,255,255,0.06);margin-top:6px;border-radius:2px}
+.chaos-card .line:nth-child(2){width:80%}
+.chaos-card .line:nth-child(3){width:60%}
+.chaos-card .line:nth-child(4){width:45%}
+.demo-card{transition:transform .2s ease,box-shadow .2s ease}
+.demo-card:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+.bg-grid{background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:48px 48px}
+.bg-ring{background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,90,31,0.015) 59px,rgba(255,90,31,0.015) 60px)}
+@media(prefers-reduced-motion){.fade-up{opacity:1;transform:none}}
+</style>
+</head>
+<body class="bg-[#0a0a0a] text-[#eee] font-sans antialiased">
+
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-lg border-b border-white/[0.04]">
+  <div class="mx-auto max-w-page px-6 lg:px-10 h-14 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2.5 text-sm font-medium">
+      <span class="w-7 h-7 border border-[#FF5A1F] flex items-center justify-center text-xs font-bold text-[#FF5A1F] font-mono">JH</span>
+      <span class="text-white/50">job-hunter</span>
+    </a>
+    <div class="flex items-center gap-4">
+      <a href="index.html" class="text-xs text-white/30 hover:text-white/60 transition-colors">中文</a>
+      <span class="text-[11px] font-mono text-[#22c55e] border border-[rgba(34,197,94,0.2)] px-2.5 py-1 rounded-full">MIT</span>
+      <a href="https://github.com/Mellisa0402/job-hunter" target="_blank" rel="noopener" class="text-sm text-white/40 hover:text-white/70 transition-colors hidden sm:inline-flex items-center gap-1.5">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative overflow-hidden bg-ring">
+  <div class="absolute inset-0 bg-grid opacity-40 pointer-events-none"></div>
+  <div class="mx-auto max-w-page px-6 lg:px-10 pt-22 pb-30 lg:pt-30 lg:pb-40 relative z-10">
+    <div class="max-w-3xl">
+      <div class="grad-line"></div>
+      <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-[800] leading-[1.08] tracking-[-0.03em] text-white">
+        You spent hours<br>
+        <span class="text-[#FF5A1F]">scrolling job posts.</span>
+      </h1>
+      <p class="text-[clamp(1.05rem,2vw,1.25rem)] text-white/40 mt-4 max-w-xl leading-relaxed">
+        That time should have been spent preparing.<br class="hidden sm:block">
+        One command turns a messy careers page into a ranked, ready-to-use handbook.
+      </p>
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a href="#demo" class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FF5A1F] text-[#0a0a0a] font-semibold text-sm hover:bg-[#e04a14] transition-colors">
+          See how it works
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://github.com/Mellisa0402/job-hunter" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 border border-white/10 text-white/70 text-sm hover:bg-white/5 hover:text-white transition-colors">
+          View on GitHub
+        </a>
+      </div>
+      <div class="flex items-center gap-4 mt-6 text-xs text-white/20 font-mono">
+        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>Open source</span>
+        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>MIT license</span>
+        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>AI-powered</span>
+      </div>
+    </div>
+  </div>
+  <div class="absolute top-[-20%] right-[-10%] w-[45%] aspect-square rounded-full bg-gradient-to-br from-[#FF5A1F]/8 to-transparent pointer-events-none blur-3xl"></div>
+</section>
+
+<!-- PROBLEM -->
+<section class="border-t border-white/[0.04] py-22 lg:py-30">
+  <div class="mx-auto max-w-page px-6 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-18 items-center">
+      <div class="fade-up">
+        <div class="text-xs font-mono text-white/20 tracking-wider mb-3">THE PROBLEM</div>
+        <h2 class="text-[clamp(1.6rem,3vw,2.25rem)] font-[700] leading-[1.15] tracking-[-0.02em] text-white">
+          Job hunting shouldn't<br class="hidden sm:block">
+          feel like data entry.
+        </h2>
+        <p class="text-white/40 mt-4 leading-relaxed text-[0.95rem]">
+          Open a careers page. Scroll. Click. Read. Compare with your resume. Open another tab.
+          Forget which one you already checked. Start over.
+        </p>
+        <div class="mt-6 space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="text-[#ef4444] text-sm leading-6 mt-0.5">✕</span>
+            <span class="text-white/50 text-sm">47 jobs × 30 seconds each to read = <strong class="text-white/70">24 minutes of manual scanning</strong></span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[#ef4444] text-sm leading-6 mt-0.5">✕</span>
+            <span class="text-white/50 text-sm">Cross-referencing against resume means <strong class="text-white/70">re-reading the same JD 3-4 times</strong></span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-[#ef4444] text-sm leading-6 mt-0.5">✕</span>
+            <span class="text-white/50 text-sm">73% of those jobs <strong class="text-white/70">aren't a match anyway</strong> — but you won't know until you click</span>
+          </div>
+        </div>
+      </div>
+      <div class="relative h-[320px] lg:h-[400px] rounded-xl overflow-hidden border border-white/[0.04] bg-surface-DEFAULT fade-up">
+        <div class="chaos-layer">
+          <div class="chaos-card" style="top:12%;left:8%;width:56%;transform:rotate(-2deg);opacity:0.7">
+            <div class="text-[11px] text-white/30 font-mono mb-2">careers.example.com/jobs</div>
+            <div class="line"></div><div class="line"></div><div class="line"></div>
+          </div>
+          <div class="chaos-card" style="top:22%;right:6%;width:48%;transform:rotate(3deg);opacity:0.5">
+            <div class="text-[11px] text-white/30 font-mono mb-2">company.com/apply/3841</div>
+            <div class="line"></div><div class="line"></div><div class="line"></div>
+          </div>
+          <div class="chaos-card" style="bottom:28%;left:12%;width:52%;transform:rotate(-1deg);opacity:0.6">
+            <div class="text-[11px] text-white/30 font-mono mb-2">board.com/position/2292</div>
+            <div class="line"></div><div class="line"></div><div class="line"></div>
+          </div>
+          <div class="chaos-card" style="bottom:14%;right:10%;width:44%;transform:rotate(2deg);opacity:0.4">
+            <div class="text-[11px] text-white/30 font-mono mb-2">comparison_v3.xlsx</div>
+            <div class="line"></div><div class="line"></div><div class="line"></div>
+          </div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 rounded-lg px-4 py-2 text-center backdrop-blur-sm">
+            <div class="text-[#FF5A1F] text-sm font-semibold">~47 min</div>
+            <div class="text-[11px] text-white/40 font-mono mt-0.5">per job board</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="border-t border-white/[0.04] py-22 lg:py-30">
+  <div class="mx-auto max-w-page px-6 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto fade-up">
+      <div class="text-xs font-mono text-white/20 tracking-wider mb-3">THE SOLUTION</div>
+      <h2 class="text-[clamp(1.6rem,3vw,2.25rem)] font-[700] leading-[1.15] tracking-[-0.02em] text-white">
+        One command replaces<br class="hidden sm:block">
+        the entire pipeline.
+      </h2>
+    </div>
+    <div class="mt-10 max-w-3xl mx-auto fade-up">
+      <div class="bg-[#050505] border border-white/[0.06] rounded-xl overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.04]">
+          <div class="flex gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]/80"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]/80"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#27c93f]/80"></span>
+          </div>
+          <span class="text-[11px] text-white/15 font-mono">zsh — job-hunter</span>
+          <div class="w-14"></div>
+        </div>
+        <div class="p-5 font-mono text-sm leading-relaxed">
+          <div class="text-white/60"><span class="text-[#22c55e]">$</span> <span class="text-[#fbbf24]">python3 run.py</span> \</div>
+          <div class="text-white/60 pl-5"><span class="text-[#60a5fa]">--url</span> <span class="text-white/40">"https://jobs.example.com/..."</span></div>
+          <div class="text-white/60 pl-5"><span class="text-[#60a5fa]">--resume</span> <span class="text-white/40">./resume.pdf</span></div>
+          <div class="text-white/60 pl-5"><span class="text-[#60a5fa]">--cities</span> <span class="text-white/40">"Shanghai, Hangzhou"</span></div>
+          <div class="mt-3 pt-3 border-t border-white/[0.04]">
+            <div class="text-[#22c55e]/70">✓ Auto-detected job board — careers.example.com</div>
+            <div class="text-[#22c55e]/70">✓ Crawled 47 positions · Reading details...</div>
+            <div class="text-[#22c55e] font-semibold">✓ Handbook generated → output/handbook.pdf</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 fade-up">
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-5 text-center">
+        <div class="text-[clamp(1.5rem,2.5vw,2rem)] font-[700] text-[#22c55e]">-94%</div>
+        <div class="text-xs text-white/30 mt-1 font-medium">Time saved</div>
+      </div>
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-5 text-center">
+        <div class="text-[clamp(1.5rem,2.5vw,2rem)] font-[700] text-white">20 → 1</div>
+        <div class="text-xs text-white/30 mt-1 font-medium">Steps reduced</div>
+      </div>
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-5 text-center">
+        <div class="text-[clamp(1.5rem,2.5vw,2rem)] font-[700] text-[#FF5A1F]">47 → 10</div>
+        <div class="text-xs text-white/30 mt-1 font-medium">Jobs worth your time</div>
+      </div>
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-5 text-center">
+        <div class="text-[clamp(1.5rem,2.5vw,2rem)] font-[700] text-white">100%</div>
+        <div class="text-xs text-white/30 mt-1 font-medium">Automated</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section class="border-t border-white/[0.04] py-22 lg:py-30">
+  <div class="mx-auto max-w-page px-6 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto fade-up">
+      <div class="text-xs font-mono text-white/20 tracking-wider mb-3">HOW IT WORKS</div>
+      <h2 class="text-[clamp(1.6rem,3vw,2.25rem)] font-[700] leading-[1.15] tracking-[-0.02em] text-white">
+        Three steps. Full pipeline.
+      </h2>
+    </div>
+    <div class="mt-12 grid md:grid-cols-3 gap-8 fade-up">
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-6 h-full">
+        <div class="w-9 h-9 border border-white/[0.06] rounded-lg flex items-center justify-center text-sm font-bold text-[#FF5A1F] font-mono mb-4">01</div>
+        <h3 class="text-[1.05rem] font-[600] text-white mb-2">Crawl</h3>
+        <p class="text-sm text-white/35 leading-relaxed">Point it at any careers page. It auto-detects the board, paginates through every listing, and pulls each job's full details — title, location, requirements, description.</p>
+        <div class="mt-4 pt-4 border-t border-white/[0.04]">
+          <div class="flex items-center gap-2 text-xs text-white/25">
+            <span class="w-4 h-4 rounded bg-white/[0.04] flex items-center justify-center text-[10px]">📥</span> Auto-pagination · Detail extraction
+          </div>
+        </div>
+      </div>
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-6 h-full">
+        <div class="w-9 h-9 border border-white/[0.06] rounded-lg flex items-center justify-center text-sm font-bold text-[#FF5A1F] font-mono mb-4">02</div>
+        <h3 class="text-[1.05rem] font-[600] text-white mb-2">Match</h3>
+        <p class="text-sm text-white/35 leading-relaxed">Your resume is read and semantically compared against every JD. AI scores each job across skills, experience, location preference, and seniority.</p>
+        <div class="mt-4 pt-4 border-t border-white/[0.04]">
+          <div class="flex items-center gap-2 text-xs text-white/25">
+            <span class="w-4 h-4 rounded bg-white/[0.04] flex items-center justify-center text-[10px]">🤖</span> AI semantic · 0-100 score · Per-dimension breakdown
+          </div>
+        </div>
+      </div>
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-6 h-full">
+        <div class="w-9 h-9 border border-white/[0.06] rounded-lg flex items-center justify-center text-sm font-bold text-[#FF5A1F] font-mono mb-4">03</div>
+        <h3 class="text-[1.05rem] font-[600] text-white mb-2">Report</h3>
+        <p class="text-sm text-white/35 leading-relaxed">A clean PDF handbook is generated — ranked by match score, grouped by city, with apply links and personalized tips for each position.</p>
+        <div class="mt-4 pt-4 border-t border-white/[0.04]">
+          <div class="flex items-center gap-2 text-xs text-white/25">
+            <span class="w-4 h-4 rounded bg-white/[0.04] flex items-center justify-center text-[10px]">📄</span> PDF/HTML · Clickable apply links · Priority labels
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="border-t border-white/[0.04] py-22 lg:py-30">
+  <div class="mx-auto max-w-page px-6 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto fade-up">
+      <div class="text-xs font-mono text-white/20 tracking-wider mb-3">USE CASES</div>
+      <h2 class="text-[clamp(1.6rem,3vw,2.25rem)] font-[700] leading-[1.15] tracking-[-0.02em] text-white">
+        Fits every job search pattern.
+      </h2>
+    </div>
+    <div class="mt-10 grid md:grid-cols-3 gap-4">
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-6 fade-up">
+        <div class="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/[0.04] flex items-center justify-center text-lg mb-4">🎓</div>
+        <h3 class="text-[1rem] font-[600] text-white mb-2">Campus hiring</h3>
+        <p class="text-sm text-white/35 leading-relaxed">Hundreds of entry-level roles across dozens of companies. Narrow down to the ones that actually fit without burning out.</p>
+        <div class="mt-3 flex gap-1.5">
+          <span class="pill pill-subtle">Batch filter</span>
+          <span class="pill pill-subtle">Entry-level</span>
+        </div>
+      </div>
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-6 fade-up">
+        <div class="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/[0.04] flex items-center justify-center text-lg mb-4">🏙️</div>
+        <h3 class="text-[1rem] font-[600] text-white mb-2">Cross-city search</h3>
+        <p class="text-sm text-white/35 leading-relaxed">Evaluating opportunities across multiple cities? See scores by location and focus your energy where it counts.</p>
+        <div class="mt-3 flex gap-1.5">
+          <span class="pill pill-subtle">Multi-city</span>
+          <span class="pill pill-subtle">Compare</span>
+        </div>
+      </div>
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-6 fade-up">
+        <div class="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/[0.04] flex items-center justify-center text-lg mb-4">📋</div>
+        <h3 class="text-[1rem] font-[600] text-white mb-2">Batch applications</h3>
+        <p class="text-sm text-white/35 leading-relaxed">Running several job searches at once. Keep each board separate, compare side by side, apply in priority order.</p>
+        <div class="mt-3 flex gap-1.5">
+          <span class="pill pill-subtle">Multi-board</span>
+          <span class="pill pill-subtle">Priority</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section id="demo" class="border-t border-white/[0.04] py-22 lg:py-30">
+  <div class="mx-auto max-w-page px-6 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto fade-up">
+      <div class="text-xs font-mono text-white/20 tracking-wider mb-3">SEE IT IN ACTION</div>
+      <h2 class="text-[clamp(1.6rem,3vw,2.25rem)] font-[700] leading-[1.15] tracking-[-0.02em] text-white">
+        What comes out.
+      </h2>
+      <p class="text-white/40 mt-3 text-sm">A ranked handbook — not a data dump.</p>
+    </div>
+    <div class="mt-10 grid md:grid-cols-3 gap-4">
+      <div class="demo-card bg-surface-DEFAULT border border-white/[0.06] rounded-xl p-5 fade-up">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-mono text-white/15">#1 priority</span>
+          <span class="text-[#22c55e] text-2xl font-bold font-mono">92</span>
+        </div>
+        <h4 class="text-[1rem] font-[600] text-white">AI Product Manager</h4>
+        <div class="flex items-center gap-2 text-xs text-white/30 mt-1"><span>ByteDance · Shanghai</span><span>·</span><span>Full-time</span></div>
+        <div class="mt-4 h-1.5 bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full w-[92%] bg-[#22c55e] rounded-full"></div></div>
+        <div class="flex items-center gap-2 mt-3">
+          <span class="pill pill-match">Skills match</span>
+          <span class="pill pill-match">City match</span>
+        </div>
+        <button class="mt-4 w-full py-2 bg-[#FF5A1F] text-[#0a0a0a] text-sm font-semibold rounded-lg cursor-default">Apply →</button>
+        <div class="text-xs text-white/25 mt-3 leading-relaxed">AI product experience strongly matches. Python + data analysis background is a plus. Apply today.</div>
+      </div>
+      <div class="demo-card bg-surface-DEFAULT border border-white/[0.06] rounded-xl p-5 fade-up">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-mono text-white/15">#2 priority</span>
+          <span class="text-[#fbbf24] text-2xl font-bold font-mono">71</span>
+        </div>
+        <h4 class="text-[1rem] font-[600] text-white">Backend Engineer</h4>
+        <div class="flex items-center gap-2 text-xs text-white/30 mt-1"><span>ByteDance · Hangzhou</span><span>·</span><span>Full-time</span></div>
+        <div class="mt-4 h-1.5 bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full w-[71%] bg-[#fbbf24] rounded-full"></div></div>
+        <div class="flex items-center gap-2 mt-3">
+          <span class="pill pill-match">Stack matches</span>
+          <span class="pill" style="border-color:rgba(251,191,36,0.2);color:#fbbf24;background:rgba(251,191,36,0.06)">System design prep</span>
+        </div>
+        <button class="mt-4 w-full py-2 bg-white/5 text-white/50 text-sm font-semibold rounded-lg border border-white/[0.06] cursor-default">Apply →</button>
+        <div class="text-xs text-white/25 mt-3 leading-relaxed">Go/Python stack fits. Hangzhou city bonus applies. Prep system design before applying.</div>
+      </div>
+      <div class="demo-card bg-surface-DEFAULT border border-white/[0.06] rounded-xl p-5 fade-up">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-mono text-white/15">#3 backup</span>
+          <span class="text-[#ef4444] text-2xl font-bold font-mono">48</span>
+        </div>
+        <h4 class="text-[1rem] font-[600] text-white">Data Analyst</h4>
+        <div class="flex items-center gap-2 text-xs text-white/30 mt-1"><span>TikTok · Shanghai</span><span>·</span><span>Campus</span></div>
+        <div class="mt-4 h-1.5 bg-white/[0.04] rounded-full overflow-hidden"><div class="h-full w-[48%] bg-[#ef4444] rounded-full"></div></div>
+        <div class="flex items-center gap-2 mt-3">
+          <span class="pill" style="border-color:rgba(251,191,36,0.2);color:#fbbf24;background:rgba(251,191,36,0.06)">SQL matches</span>
+          <span class="pill pill-miss">Direction mismatch</span>
+        </div>
+        <button class="mt-4 w-full py-2 bg-white/5 text-white/30 text-sm font-semibold rounded-lg border border-white/[0.06] cursor-default opacity-50">Apply →</button>
+        <div class="text-xs text-white/25 mt-3 leading-relaxed">SQL passes but the role leans business analysis. Keep as backup, don't prioritize.</div>
+      </div>
+    </div>
+    <div class="mt-6 bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-5 fade-up">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="text-sm text-white/50">47 jobs crawled → <strong class="text-white">3 priority</strong> + <strong class="text-white">7 keep</strong> + <strong class="text-white text-white/30">37 skip</strong></div>
+        <div class="h-4 flex rounded-full overflow-hidden flex-1 max-w-xs">
+          <div class="bg-[#22c55e] w-[13%]"></div>
+          <div class="bg-[#fbbf24] w-[15%]"></div>
+          <div class="bg-[#FF5A1F] w-[19%]"></div>
+          <div class="bg-white/[0.06] w-[53%]"></div>
+        </div>
+        <div class="flex items-center gap-3 text-[11px] text-white/25">
+          <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#22c55e]"></span>Priority</span>
+          <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#fbbf24]"></span>Consider</span>
+          <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-white/10"></span>Skip</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="border-t border-white/[0.04] py-22 lg:py-30 bg-surface-DEFAULT/30">
+  <div class="mx-auto max-w-page px-6 lg:px-10">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-7 fade-up text-center">
+        <div class="text-4xl font-bold text-white mb-1">94%</div>
+        <div class="text-xs text-white/30 font-mono uppercase tracking-wider">Time reduction</div>
+        <div class="mt-4 text-sm text-white/35 leading-relaxed">Average job board processing drops from 47 minutes to under 3 minutes.</div>
+      </div>
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-7 fade-up text-center">
+        <div class="text-4xl font-bold text-white mb-1">47 → 10</div>
+        <div class="text-xs text-white/30 font-mono uppercase tracking-wider">Signal ratio</div>
+        <div class="mt-4 text-sm text-white/35 leading-relaxed">Only the top 20% of jobs are worth your time. The tool finds them instantly.</div>
+      </div>
+      <div class="bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-7 fade-up text-center">
+        <div class="text-4xl font-bold text-white mb-1">100%</div>
+        <div class="text-xs text-white/30 font-mono uppercase tracking-wider">Automated</div>
+        <div class="mt-4 text-sm text-white/35 leading-relaxed">From crawling to PDF generation — zero manual intervention required.</div>
+      </div>
+    </div>
+    <div class="mt-8 bg-surface-DEFAULT border border-white/[0.04] rounded-xl p-6 fade-up">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div class="flex items-center gap-2 text-white/40"><span class="text-[#22c55e]">✓</span> Any careers page</div>
+        <div class="flex items-center gap-2 text-white/40"><span class="text-[#22c55e]">✓</span> Playwright-powered crawl</div>
+        <div class="flex items-center gap-2 text-white/40"><span class="text-[#22c55e]">✓</span> AI / keyword matching</div>
+        <div class="flex items-center gap-2 text-white/40"><span class="text-[#22c55e]">✓</span> PDF + HTML output</div>
+        <div class="flex items-center gap-2 text-white/40"><span class="text-[#22c55e]">✓</span> Resume auto-parse</div>
+        <div class="flex items-center gap-2 text-white/40"><span class="text-[#22c55e]">✓</span> City bonus scoring</div>
+        <div class="flex items-center gap-2 text-white/40"><span class="text-[#22c55e]">✓</span> YAML-driven config</div>
+        <div class="flex items-center gap-2 text-white/40"><span class="text-[#22c55e]">✓</span> MIT open source</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="border-t border-white/[0.04] py-22 lg:py-30">
+  <div class="mx-auto max-w-page px-6 lg:px-10 text-center">
+    <div class="max-w-2xl mx-auto fade-up">
+      <div class="grad-line mx-auto"></div>
+      <h2 class="text-[clamp(1.8rem,3.5vw,2.75rem)] font-[800] leading-[1.08] tracking-[-0.03em] text-white">
+        Stop scrolling.<br>
+        <span class="text-[#FF5A1F]">Start applying.</span>
+      </h2>
+      <p class="text-white/40 mt-4 text-sm max-w-lg mx-auto leading-relaxed">
+        Open source, MIT licensed. Clone it, point it at a job board, and get a ranked handbook in minutes.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="https://github.com/Mellisa0402/job-hunter" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 bg-[#FF5A1F] text-[#0a0a0a] font-semibold text-sm hover:bg-[#e04a14] transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+        <a href="#demo" class="inline-flex items-center gap-2 px-6 py-3 border border-white/10 text-white/70 text-sm hover:bg-white/5 hover:text-white transition-colors">
+          See the output
+        </a>
+      </div>
+      <div class="flex items-center justify-center gap-4 mt-6 text-xs text-white/15 font-mono">
+        <span>Open source</span><span class="w-1 h-1 rounded-full bg-white/10"></span>
+        <span>MIT license</span><span class="w-1 h-1 rounded-full bg-white/10"></span>
+        <span>Python 3.10+</span><span class="w-1 h-1 rounded-full bg-white/10"></span>
+        <span>Playwright</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-white/[0.04] py-6">
+  <div class="mx-auto max-w-page px-6 lg:px-10 flex items-center justify-between text-xs text-white/15">
+    <span>job-hunter · MIT</span>
+    <a href="https://github.com/Mellisa0402/job-hunter" target="_blank" rel="noopener" class="hover:text-white/30 transition-colors">github.com/Mellisa0402/job-hunter</a>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const els = document.querySelectorAll('.fade-up');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('visible'); obs.unobserve(entry.target); } });
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => obs.observe(el));
+});
+</script>
+</body>
+</html>
