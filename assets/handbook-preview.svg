@@ -1,0 +1,36 @@
+<svg width="1280" height="900" viewBox="0 0 1280 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="900" fill="#F6F1E8"/>
+  <rect x="96" y="64" width="1088" height="772" rx="30" fill="#FFFAF2" stroke="#D7C9B1"/>
+  <rect x="144" y="112" width="992" height="168" rx="28" fill="#FFF7EB" stroke="#E7D8C1"/>
+  <text x="184" y="164" fill="#7C3F25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18" letter-spacing="4">APPLICATION HANDBOOK</text>
+  <text x="184" y="214" fill="#231815" font-family="Georgia, serif" font-size="44" font-weight="700">更像作品集，不像工具导出</text>
+  <text x="184" y="252" fill="#4B5563" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="22">首页先讲重点，再分城市展示最值得先投的岗位。</text>
+
+  <rect x="144" y="328" width="300" height="112" rx="24" fill="#FFF" stroke="#E7D8C1"/>
+  <text x="176" y="372" fill="#B85C38" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18">Top City</text>
+  <text x="176" y="410" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="30" font-weight="700">Shanghai</text>
+
+  <rect x="490" y="328" width="300" height="112" rx="24" fill="#FFF" stroke="#E7D8C1"/>
+  <text x="522" y="372" fill="#B85C38" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18">Best Match</text>
+  <text x="522" y="410" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="30" font-weight="700">92 / 100</text>
+
+  <rect x="836" y="328" width="300" height="112" rx="24" fill="#FFF" stroke="#E7D8C1"/>
+  <text x="868" y="372" fill="#B85C38" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18">Output</text>
+  <text x="868" y="410" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="30" font-weight="700">HTML / PDF</text>
+
+  <rect x="144" y="484" width="466" height="280" rx="28" fill="#FFF" stroke="#E7D8C1"/>
+  <text x="176" y="532" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700">最值得先看</text>
+  <rect x="176" y="568" width="402" height="62" rx="18" fill="#FFF7EB"/>
+  <text x="200" y="606" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="22">Product Manager Intern</text>
+  <rect x="176" y="650" width="280" height="14" rx="7" fill="#E7D8C1"/>
+  <rect x="176" y="650" width="232" height="14" rx="7" fill="#B85C38"/>
+  <text x="470" y="662" fill="#7C3F25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18">83</text>
+  <text x="176" y="714" fill="#6B7280" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20">技能匹配、城市优先、适合先投。</text>
+
+  <rect x="670" y="484" width="466" height="280" rx="28" fill="#FFF" stroke="#E7D8C1"/>
+  <text x="702" y="532" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700">城市分组</text>
+  <rect x="702" y="568" width="402" height="62" rx="18" fill="#F6F7FB"/>
+  <text x="726" y="606" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="22">Shanghai · 8 roles</text>
+  <rect x="702" y="650" width="402" height="62" rx="18" fill="#F6F7FB"/>
+  <text x="726" y="688" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="22">Beijing · 5 roles</text>
+</svg>

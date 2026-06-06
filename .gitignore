@@ -15,3 +15,4 @@ jobs_raw_ckpt_*.json
 auth.json
 storage_state.json
 config/user.yaml
+public-export/

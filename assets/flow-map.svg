@@ -1,0 +1,31 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#F6F1E8"/>
+  <rect x="72" y="72" width="1136" height="576" rx="32" fill="#FFFAF2" stroke="#D7C9B1"/>
+  <text x="112" y="142" fill="#7C3F25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18" letter-spacing="4">FLOW</text>
+  <text x="112" y="198" fill="#231815" font-family="Georgia, serif" font-size="50" font-weight="700">一眼看懂这个项目怎么跑</text>
+  <text x="112" y="244" fill="#4B5563" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="24">输入一页岗位，输出一份更适合判断和投递的手册。</text>
+
+  <rect x="112" y="320" width="260" height="214" rx="28" fill="#FFF" stroke="#E7D8C1"/>
+  <text x="144" y="370" fill="#B85C38" font-family="Georgia, serif" font-size="30">Input</text>
+  <text x="144" y="416" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="30" font-weight="700">岗位列表页</text>
+  <text x="144" y="454" fill="#6B7280" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20">招聘官网链接</text>
+  <text x="144" y="484" fill="#6B7280" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20">简历或关键词</text>
+
+  <rect x="510" y="298" width="260" height="258" rx="28" fill="#FFF" stroke="#E7D8C1"/>
+  <text x="542" y="348" fill="#B85C38" font-family="Georgia, serif" font-size="30">Process</text>
+  <text x="542" y="394" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="30" font-weight="700">抓取 → 匹配 → 排序</text>
+  <text x="542" y="432" fill="#6B7280" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20">读取详情</text>
+  <text x="542" y="462" fill="#6B7280" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20">按简历特征打分</text>
+  <text x="542" y="492" fill="#6B7280" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20">按城市和优先级整理</text>
+
+  <rect x="908" y="320" width="260" height="214" rx="28" fill="#FFF" stroke="#E7D8C1"/>
+  <text x="940" y="370" fill="#B85C38" font-family="Georgia, serif" font-size="30">Output</text>
+  <text x="940" y="416" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="30" font-weight="700">投递手册</text>
+  <text x="940" y="454" fill="#6B7280" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20">HTML / PDF</text>
+  <text x="940" y="484" fill="#6B7280" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20">可展示、可分享、可行动</text>
+
+  <path d="M388 427H490" stroke="#B85C38" stroke-width="8" stroke-linecap="round"/>
+  <path d="M888 427H790" stroke="#B85C38" stroke-width="8" stroke-linecap="round"/>
+  <path d="M474 404L510 427L474 450" stroke="#B85C38" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M806 404L770 427L806 450" stroke="#B85C38" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
