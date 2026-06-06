@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8">
+<title>Demo Candidate · 求职投递手册</title>
+<style>@page { size: A4; margin: 14mm 12mm; }
+
+:root {
+  --paper: #f6f1e8;
+  --panel: #fffaf2;
+  --ink: #1f2933;
+  --muted: #6b7280;
+  --line: #d7c9b1;
+  --accent: #b85c38;
+  --accent-soft: #e9c7a7;
+  --accent-deep: #7c3f25;
+  --good: #2f6f4f;
+  --good-soft: #d8eadc;
+  --shadow: rgba(103, 74, 43, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top right, rgba(184, 92, 56, 0.10), transparent 24%),
+    radial-gradient(circle at left 20%, rgba(47, 111, 79, 0.08), transparent 20%),
+    var(--paper);
+}
+
+.hero,
+.summary-panel,
+.notes-panel,
+.job-card,
+.strategy-card {
+  break-inside: avoid;
+}
+
+.hero {
+  background: linear-gradient(135deg, rgba(255, 250, 242, 0.96), rgba(244, 232, 214, 0.96));
+  border: 1px solid rgba(124, 63, 37, 0.12);
+  border-radius: 18px;
+  padding: 20px 20px 16px;
+  box-shadow: 0 10px 24px var(--shadow);
+}
+
+.hero-kicker {
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  color: var(--accent-deep);
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #231815;
+}
+
+.subtitle {
+  margin-top: 10px;
+  max-width: 420px;
+  color: #4b5563;
+  font-size: 12px;
+}
+
+.hero-grid,
+.flow-grid,
+.summary-grid,
+.top-picks {
+  display: grid;
+  gap: 10px;
+}
+
+.hero-grid {
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 18px;
+}
+
+.hero-card,
+.flow-card,
+.summary-item,
+.pick-card {
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(124, 63, 37, 0.10);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.hero-card.accent {
+  background: linear-gradient(180deg, rgba(184, 92, 56, 0.14), rgba(255, 255, 255, 0.92));
+}
+
+.hero-label,
+.panel-title,
+.summary-city,
+.pick-rank,
+.job-rank {
+  color: var(--accent-deep);
+}
+
+.hero-label,
+.summary-city,
+.pick-rank {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.hero-value {
+  margin-top: 6px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1f2933;
+}
+
+.hero-note,
+.flow-desc,
+.summary-label,
+.pick-meta,
+.pick-reason,
+.section-subtitle,
+.score-caption,
+.footer,
+.muted {
+  color: var(--muted);
+}
+
+.hero-note,
+.flow-desc,
+.summary-label,
+.pick-reason,
+.score-caption,
+.job-link,
+.footer {
+  font-size: 10px;
+}
+
+.summary-panel,
+.notes-panel {
+  margin-top: 14px;
+  background: rgba(255, 250, 242, 0.78);
+  border: 1px solid rgba(124, 63, 37, 0.10);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.panel-title {
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.flow-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.flow-no {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 22px;
+  color: var(--accent);
+}
+
+.flow-title {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.summary-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.summary-num {
+  margin-top: 8px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.notes-panel {
+  padding-top: 12px;
+}
+
+.note-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(124, 63, 37, 0.16);
+}
+
+.note-key {
+  min-width: 68px;
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+.note-value {
+  flex: 1;
+}
+
+.top-picks {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pick-title {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #231815;
+}
+
+.section-title {
+  margin: 20px 0 6px;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #231815;
+}
+
+.section-subtitle {
+  margin-bottom: 10px;
+}
+
+.job-card {
+  position: relative;
+  margin-bottom: 10px;
+  padding: 14px 14px 12px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(124, 63, 37, 0.10);
+  border-radius: 16px;
+}
+
+.job-rank {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.job-title {
+  max-width: 78%;
+  font-size: 14px;
+  font-weight: 700;
+  color: #231815;
+}
+
+.job-score {
+  background: var(--good-soft);
+  color: var(--good);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.job-meta,
+.job-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.job-meta {
+  margin-top: 8px;
+}
+
+.job-meta span,
+.job-tag {
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 9px;
+}
+
+.job-meta span {
+  background: rgba(31, 41, 51, 0.05);
+  color: #46515c;
+}
+
+.score-track {
+  margin-top: 10px;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(124, 63, 37, 0.10);
+}
+
+.score-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), #d98758);
+}
+
+.score-caption {
+  margin-top: 6px;
+}
+
+.job-tags {
+  margin-top: 8px;
+}
+
+.job-tag {
+  background: rgba(184, 92, 56, 0.10);
+  color: var(--accent-deep);
+}
+
+.job-link {
+  margin-top: 10px;
+  word-break: break-all;
+}
+
+.job-link a {
+  color: var(--accent-deep);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.strategy-card {
+  margin-bottom: 8px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(124, 63, 37, 0.10);
+  border-radius: 14px;
+}
+
+.footer {
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(124, 63, 37, 0.10);
+  text-align: center;
+}
+
+.page-break {
+  page-break-before: always;
+}
+</style></head>
+<body>
+<div style="max-width: 980px; margin: 24px auto 0; padding: 12px 16px; border: 1px solid rgba(124, 63, 37, 0.12); border-radius: 14px; background: rgba(255, 250, 242, 0.92); color: #4b5563; font-size: 13px;">
+  这是公开展示用的匿名示例页，用来说明最终产出会长什么样。
+</div>
+
+<section class="hero">
+  <div class="hero-kicker">JOB HUNTER PLAYBOOK</div>
+  <h1>Demo Candidate · 求职投递手册</h1>
+  <div class="subtitle">把分散岗位整理成一份能直接投、能直接讲、也能直接展示的清单。</div>
+
+  <div class="hero-grid">
+    <div class="hero-card accent">
+      <div class="hero-label">优先投递</div>
+      <div class="hero-value">2</div>
+      <div class="hero-note">分数 80 以上的岗位数量</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-label">纳入手册</div>
+      <div class="hero-value">4</div>
+      <div class="hero-note">达到展示标准的岗位数量</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-label">平均匹配度</div>
+      <div class="hero-value">78</div>
+      <div class="hero-note">已经压到 100 分制内</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-label">目标城市</div>
+      <div class="hero-value">3</div>
+      <div class="hero-note">当前覆盖的城市分组</div>
+    </div>
+  </div>
+</section>
+
+<section class="summary-panel">
+  <div class="panel-title">这份手册怎么看</div>
+  <div class="flow-grid">
+
+    <div class="flow-card">
+      <div class="flow-no">01</div>
+      <div class="flow-title">收集岗位</div>
+      <div class="flow-desc">从招聘官网批量抓取岗位列表和详情。</div>
+    </div>
+
+    <div class="flow-card">
+      <div class="flow-no">02</div>
+      <div class="flow-title">筛选匹配</div>
+      <div class="flow-desc">按城市、岗位类型和简历特征做优先级排序。</div>
+    </div>
+
+    <div class="flow-card">
+      <div class="flow-no">03</div>
+      <div class="flow-title">生成手册</div>
+      <div class="flow-desc">把值得投递的岗位整理成可直接点击的清单。</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="summary-panel">
+  <div class="panel-title">概览</div>
+  <div class="summary-grid">
+
+    <div class="summary-item">
+      <div class="summary-city">📍 Hangzhou</div>
+      <div class="summary-num">2</div>
+      <div class="summary-label">可优先关注</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-city">📍 Shanghai</div>
+      <div class="summary-num">1</div>
+      <div class="summary-label">可优先关注</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-city">📍 Beijing</div>
+      <div class="summary-num">1</div>
+      <div class="summary-label">可优先关注</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-city">🎓 校招岗位</div>
+      <div class="summary-num">2</div>
+      <div class="summary-label">适合新人或转向</div>
+    </div>
+  </div>
+</section>
+<section class="notes-panel">
+  <div class="panel-title">定位提示</div>
+  <div class="note-row"><span class="note-key">你的亮点</span><span class="note-value">熟悉 AI 内容、数据分析和自动化整理流程</span></div>
+  <div class="note-row"><span class="note-key">建议关键词</span><span class="note-value">AI 产品运营, LLM 数据运营, AIGC 内容策略</span></div>
+</section>
+<section class="summary-panel">
+  <div class="panel-title">最值得先看</div>
+  <div class="top-picks">
+
+    <div class="pick-card">
+      <div class="pick-rank">Top 1</div>
+      <div class="pick-title">AI 产品运营</div>
+      <div class="pick-meta">Hangzhou · bytedance_full_time</div>
+      <div class="pick-reason">技能命中：内容策略 / 技能命中：数据分析</div>
+    </div>
+
+    <div class="pick-card">
+      <div class="pick-rank">Top 2</div>
+      <div class="pick-title">LLM 数据运营</div>
+      <div class="pick-meta">Shanghai · tiktok_campus</div>
+      <div class="pick-reason">技能命中：Prompt 设计 / 校招通道</div>
+    </div>
+
+    <div class="pick-card">
+      <div class="pick-rank">Top 3</div>
+      <div class="pick-title">AIGC 内容策略</div>
+      <div class="pick-meta">Beijing · tiktok_full_time</div>
+      <div class="pick-reason">技能命中：内容增长 / 技能命中：用户研究</div>
+    </div>
+  </div>
+</section>
+<div class="section-title">📍 Hangzhou · 推荐岗位 2 个</div>
+<div class="section-subtitle">这一组平均匹配度 77 分，按优先级从高到低排列。</div>
+<div class="job-card">
+  <div class="job-rank">#1</div>
+  <div class="job-header">
+    <div class="job-title">AI 产品运营</div>
+    <div class="job-score">92分</div>
+  </div>
+  <div class="job-meta">
+    <span>Hangzhou</span><span>bytedance_full_time</span><span>岗位编号 A1024</span>
+  </div>
+  <div class="score-track"><div class="score-fill" style="width: 92%"></div></div>
+  <div class="score-caption">建议立刻投递</div>
+  <div class="job-tags"><span class="job-tag">技能命中：内容策略</span><span class="job-tag">技能命中：数据分析</span><span class="job-tag">城市匹配：Hangzhou</span>  </div>
+  <div class="job-link"><a href="https://example.com/jobs/1" target="_blank">打开岗位链接</a></div>
+</div>
+<div class="job-card">
+  <div class="job-rank">#2</div>
+  <div class="job-header">
+    <div class="job-title">数据产品助理</div>
+    <div class="job-score">63分</div>
+  </div>
+  <div class="job-meta">
+    <span>Hangzhou</span><span>bytedance_campus</span><span>岗位编号 A1027</span>
+  </div>
+  <div class="score-track"><div class="score-fill" style="width: 63%"></div></div>
+  <div class="score-caption">可以作为补充选择</div>
+  <div class="job-tags"><span class="job-tag">技能命中：SQL</span><span class="job-tag">校招通道</span>  </div>
+  <div class="job-link muted">这个岗位暂时没有可用链接，建议回到原站补抓详情页。</div>
+</div>
+<div class="section-title">📍 Shanghai · 推荐岗位 1 个</div>
+<div class="section-subtitle">这一组平均匹配度 86 分，按优先级从高到低排列。</div>
+<div class="job-card">
+  <div class="job-rank">#1</div>
+  <div class="job-header">
+    <div class="job-title">LLM 数据运营</div>
+    <div class="job-score">86分</div>
+  </div>
+  <div class="job-meta">
+    <span>Shanghai</span><span>tiktok_campus</span><span>岗位编号 A1025</span>
+  </div>
+  <div class="score-track"><div class="score-fill" style="width: 86%"></div></div>
+  <div class="score-caption">建议立刻投递</div>
+  <div class="job-tags"><span class="job-tag">技能命中：Prompt 设计</span><span class="job-tag">校招通道</span>  </div>
+  <div class="job-link"><a href="https://example.com/jobs/2" target="_blank">打开岗位链接</a></div>
+</div>
+<div class="section-title">📍 Beijing · 推荐岗位 1 个</div>
+<div class="section-subtitle">这一组平均匹配度 74 分，按优先级从高到低排列。</div>
+<div class="job-card">
+  <div class="job-rank">#1</div>
+  <div class="job-header">
+    <div class="job-title">AIGC 内容策略</div>
+    <div class="job-score">74分</div>
+  </div>
+  <div class="job-meta">
+    <span>Beijing</span><span>tiktok_full_time</span><span>岗位编号 A1026</span>
+  </div>
+  <div class="score-track"><div class="score-fill" style="width: 74%"></div></div>
+  <div class="score-caption">建议本周优先处理</div>
+  <div class="job-tags"><span class="job-tag">技能命中：内容增长</span><span class="job-tag">技能命中：用户研究</span>  </div>
+  <div class="job-link"><a href="https://example.com/jobs/3" target="_blank">打开岗位链接</a></div>
+</div>
+<div class="section-title">🎓 校招 / 应届生岗位 2 个</div>
+<div class="section-subtitle">适合想先拿机会、再逐步挑方向的投递顺序。</div>
+<div class="job-card">
+  <div class="job-rank">#1</div>
+  <div class="job-header">
+    <div class="job-title">LLM 数据运营</div>
+    <div class="job-score">86分</div>
+  </div>
+  <div class="job-meta">
+    <span>Shanghai</span><span>tiktok_campus</span><span>岗位编号 A1025</span>
+  </div>
+  <div class="score-track"><div class="score-fill" style="width: 86%"></div></div>
+  <div class="score-caption">建议立刻投递</div>
+  <div class="job-tags"><span class="job-tag">技能命中：Prompt 设计</span><span class="job-tag">校招通道</span>  </div>
+  <div class="job-link"><a href="https://example.com/jobs/2" target="_blank">打开岗位链接</a></div>
+</div>
+<div class="job-card">
+  <div class="job-rank">#2</div>
+  <div class="job-header">
+    <div class="job-title">数据产品助理</div>
+    <div class="job-score">63分</div>
+  </div>
+  <div class="job-meta">
+    <span>Hangzhou</span><span>bytedance_campus</span><span>岗位编号 A1027</span>
+  </div>
+  <div class="score-track"><div class="score-fill" style="width: 63%"></div></div>
+  <div class="score-caption">可以作为补充选择</div>
+  <div class="job-tags"><span class="job-tag">技能命中：SQL</span><span class="job-tag">校招通道</span>  </div>
+  <div class="job-link muted">这个岗位暂时没有可用链接，建议回到原站补抓详情页。</div>
+</div>
+<div class="page-break"></div>
+<div class="section-title">📋 投递节奏建议</div>
+<div class="strategy-card"><b>第 1 步：</b>先投高分岗位，尽快拿到反馈。</div>
+<div class="strategy-card"><b>第 2 步：</b>把同城同类岗位放在同一天处理，节省切换成本。</div>
+<div class="strategy-card"><b>第 3 步：</b>每次投递后记录状态，三天内没有回音就跟进。</div>
+<div class="strategy-card"><b>提醒：</b>链接缺失或标题缺失的岗位，不建议直接对外展示。</div>
+<div class="footer"><p>Generated by job-hunter · HTML 与 PDF 都可直接展示</p></div>
+</body></html>
