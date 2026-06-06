@@ -1,0 +1,32 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#F6F1E8"/>
+  <circle cx="1142" cy="122" r="210" fill="#E9C7A7" fill-opacity="0.45"/>
+  <circle cx="139" cy="606" r="205" fill="#D8EADC" fill-opacity="0.55"/>
+  <rect x="72" y="68" width="1136" height="584" rx="28" fill="#FFFAF2" stroke="#D7C9B1"/>
+  <text x="104" y="136" fill="#7C3F25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18" letter-spacing="4">JOB HUNTER</text>
+  <text x="104" y="194" fill="#231815" font-family="Georgia, serif" font-size="52" font-weight="700">从岗位列表到投递手册</text>
+  <text x="104" y="244" fill="#4B5563" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="24">抓取岗位、匹配简历、输出一份能直接行动也能直接展示的清单。</text>
+
+  <rect x="104" y="308" width="332" height="128" rx="24" fill="white" stroke="#E7D8C1"/>
+  <text x="132" y="350" fill="#B85C38" font-family="Georgia, serif" font-size="26">01</text>
+  <text x="132" y="387" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700">批量抓取岗位</text>
+  <text x="132" y="421" fill="#6B7280" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18">从招聘官网拉出列表页和详情页。</text>
+
+  <rect x="474" y="308" width="332" height="128" rx="24" fill="white" stroke="#E7D8C1"/>
+  <text x="502" y="350" fill="#B85C38" font-family="Georgia, serif" font-size="26">02</text>
+  <text x="502" y="387" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700">匹配并排序</text>
+  <text x="502" y="421" fill="#6B7280" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18">按城市、方向和简历特征做优先级。</text>
+
+  <rect x="844" y="308" width="332" height="128" rx="24" fill="white" stroke="#E7D8C1"/>
+  <text x="872" y="350" fill="#B85C38" font-family="Georgia, serif" font-size="26">03</text>
+  <text x="872" y="387" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700">生成展示手册</text>
+  <text x="872" y="421" fill="#6B7280" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18">输出 HTML / PDF，适合投递与对外展示。</text>
+
+  <rect x="104" y="492" width="518" height="112" rx="24" fill="#FFF" stroke="#E7D8C1"/>
+  <text x="136" y="536" fill="#7C3F25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18">当前对外卖点</text>
+  <text x="136" y="573" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="24" font-weight="700">不是导出表格，而是整理出“下一步该投什么”</text>
+
+  <rect x="658" y="492" width="518" height="112" rx="24" fill="#FFF" stroke="#E7D8C1"/>
+  <text x="690" y="536" fill="#7C3F25" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="18">适合场景</text>
+  <text x="690" y="573" fill="#231815" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="24" font-weight="700">校招、社招、跨城求职、公开演示</text>
+</svg>

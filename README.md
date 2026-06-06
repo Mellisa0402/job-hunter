@@ -2,6 +2,8 @@
 
 One command to crawl job listings from any career site, match them against your resume, and generate an HTML/PDF application handbook with clickable apply links.
 
+![Project overview](./assets/overview.svg)
+
 ## Why This Exists
 
 Job sites are noisy. This project turns a long list of openings into a short, ranked handbook you can actually act on.
@@ -28,6 +30,16 @@ What is still being polished:
 - cleaner public sample data
 - screenshot assets for GitHub
 - a dedicated demo page for sharing
+
+## Demo Pitch
+
+`job-hunter` turns a messy careers page into a short, ranked application handbook.
+
+Instead of reading hundreds of listings by hand, you can:
+
+- pull jobs from a target site
+- score them against your resume
+- review a cleaner shortlist by city and priority
 
 ## Quick Start
 

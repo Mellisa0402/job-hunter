@@ -13,6 +13,9 @@
 - `hunter/matcher/keyword_matcher.py`：离线关键词打分，不依赖外部接口。
 - `hunter/reporter/generator.py`：把结果整理成更适合展示的 HTML 和 PDF 手册。
 - `templates/style.css`：控制手册的视觉样式和信息层级。
+- `assets/overview.svg`：仓库首页用的总览横幅。
+- `docs/showcase-plan.md`：记录展示包装下一步要补什么。
+- `docs/demo-script.md`：对外介绍项目时可直接复用的短讲稿。
 - `config/sites/*.yaml`：每个招聘网站的抓取规则。
 - `config/user.example.yaml`：用户自己的配置模板。
 - `scripts/*.py`：兼容旧用法的脚本入口。
