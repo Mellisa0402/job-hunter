@@ -1,0 +1,55 @@
+{
+  "pipeline_metadata": {
+    "project_name": "job-hunter-stardew-promo",
+    "target_platform": ["xhs", "dy"],
+    "aspect_ratio": "9:16",
+    "resolution": {
+      "width": 1080,
+      "height": 1920
+    },
+    "fps": 30,
+    "global_visual_style": "16-bit_Stardew_Valley_Pixel_Art",
+    "global_audio_track": {
+      "bgm_asset_id": "stardew_valley_overture_lofi",
+      "bgm_volume": 0.15
+    }
+  },
+  "timeline_tracks": [
+    {
+      "id": 1,
+      "time_start_ms": 0,
+      "time_end_ms": 7000,
+      "voiceover_script": "最近在看工作，真的要被各大招聘网站折磨崩溃了。每天下班肉眼去刷几百个岗位，字多得像看天书，感觉自己像在无尽地踩坑，效率低还让人焦虑……"
+    },
+    {
+      "id": 2,
+      "time_start_ms": 7000,
+      "time_end_ms": 15000,
+      "voiceover_script": "很多岗位名字差不多，要求却天差地别，不仔细看根本不知道合不合适。全靠人工一条条去对关键词、看工作城市，一晚上过去，真正能投的没几个。"
+    },
+    {
+      "id": 3,
+      "time_start_ms": 15000,
+      "time_end_ms": 26000,
+      "voiceover_script": "既然这么麻烦，我干脆做了个把求职变成星露谷游戏的小工具。只要把简历和想看的招聘网址丢给它，后台就会自动开启一条自动化流水线。"
+    },
+    {
+      "id": 4,
+      "time_start_ms": 26000,
+      "time_end_ms": 38000,
+      "voiceover_script": "工具会自动把抓下来的岗位和你的简历去匹配打分。满分100分，城市不对的、要求不符的直接过滤不看。只有高分岗位才能通关留下来。"
+    },
+    {
+      "id": 5,
+      "time_start_ms": 38000,
+      "time_end_ms": 50000,
+      "voiceover_script": "最后，它会给你直接吐出一份超治愈的‘求职行动手册’。哪个岗位最适合你、投递入口在哪，全部一目了然，再也不用乱苍蝇一样到处乱翻了。"
+    },
+    {
+      "id": 6,
+      "time_start_ms": 50000,
+      "time_end_ms": 60000,
+      "voiceover_script": "这个叫 job-hunter 的小工具我已经完全开源了。如果你也找工作找得头大、不想再做无意义的消耗，可以直接去开源社区拿去用。希望能帮到大家，祝大家早日通关求职季！"
+    }
+  ]
+}
