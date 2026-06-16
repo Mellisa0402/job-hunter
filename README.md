@@ -18,6 +18,7 @@ It is useful when you have many company career pages, city-specific search links
 - 按简历、城市、岗位方向和关键词做匹配。
 - 排除明显不适合的岗位，比如销售、客服、地推、过度资深或重开发岗位。
 - 生成可点击的 HTML 手册和适合查看的 PDF 手册。
+- HTML 手册可按城市、薪资高低、实习/全职筛选；投递链接会新开页面，不覆盖手册。
 - 对反爬严重的平台做分层处理：能公开读取才入库，不能验证就只作为备用入口。
 
 English:
@@ -26,6 +27,7 @@ English:
 - Match jobs against resume signals, cities, target roles, and keywords.
 - Filter out clearly unsuitable jobs such as sales-heavy, customer-service, field-promotion, overly senior, or heavy engineering roles.
 - Generate a clickable HTML handbook and a readable PDF handbook.
+- Filter the HTML handbook by city, salary order, and internship/full-time type; application links open separately so the handbook stays in place.
 - Handle anti-crawl platforms conservatively: only verified readable jobs enter the final list; unverified platforms stay as backup entrances.
 
 ![Flow map](./assets/flow-map.svg)
@@ -34,11 +36,11 @@ English:
 
 中文：
 
-输出结果不是一堆原始链接，而是一份可以直接执行的投递清单。它会显示城市分布、岗位标题、公司、薪资、地点要求、匹配原因和投递链接。
+输出结果不是一堆原始链接，而是一份可以直接执行的投递清单。它会显示城市分布、岗位标题、公司、薪资、地点要求、匹配原因和投递链接；HTML 里还能按城市、薪资和实习/全职快速切换。
 
 English:
 
-The output is not a dump of raw links. It is an actionable shortlist showing city distribution, job title, company, salary, location requirements, match reasons, and application links.
+The output is not a dump of raw links. It is an actionable shortlist showing city distribution, job title, company, salary, location requirements, match reasons, and application links, with city, salary, and internship/full-time controls in the HTML version.
 
 ![Handbook preview](./assets/handbook-preview.svg)
 
@@ -191,6 +193,7 @@ English: See `docs/alina-job-manual-runbook.md` for details. It uses verified pu
 | Done | 更稳定的 100 分制匹配分数 | More stable 100-point scoring |
 | Done | GitHub 首页横幅和展示文案 | GitHub showcase assets and copy |
 | Done | 阿离岗位投递手册：221 个已筛选岗位，输出 PDF + HTML | Alina handbook: 221 filtered jobs, PDF + HTML output |
+| Done | HTML 手册支持城市、薪资、实习/全职筛选，投递链接不覆盖手册 | HTML handbook supports city, salary, internship/full-time filters, with non-overwriting links |
 | Doing | 继续补公开展示素材 | Continue polishing public showcase assets |
 
 ## License

@@ -373,17 +373,65 @@ def grouped_jobs(jobs: list[Job]) -> dict[str, list[Job]]:
     return groups
 
 
+def salary_monthly_value(salary: str) -> int:
+    text = salary.replace(" ", "").replace("k", "K")
+    if not text or "面议" in text:
+        return 0
+
+    daily = re.search(r"(\d+(?:\.\d+)?)(?:-(\d+(?:\.\d+)?))?元/天", text)
+    if daily:
+        high = daily.group(2) or daily.group(1)
+        return int(float(high) * 22)
+
+    annual = re.search(r"(\d+(?:\.\d+)?)(?:-(\d+(?:\.\d+)?))?万/年", text)
+    if annual:
+        high = annual.group(2) or annual.group(1)
+        return int(float(high) * 10000 / 12)
+
+    wan = re.search(r"(\d+(?:\.\d+)?)(?:-(\d+(?:\.\d+)?))?万", text)
+    if wan:
+        high = wan.group(2) or wan.group(1)
+        return int(float(high) * 10000)
+
+    k_match = re.search(r"(\d+(?:\.\d+)?)(?:-(\d+(?:\.\d+)?))?K", text)
+    if k_match:
+        high = k_match.group(2) or k_match.group(1)
+        return int(float(high) * 1000)
+
+    qian = re.search(r"(\d+(?:\.\d+)?)(?:-(\d+(?:\.\d+)?))?千", text)
+    if qian:
+        high = qian.group(2) or qian.group(1)
+        return int(float(high) * 1000)
+
+    yuan = re.search(r"(\d{3,5})(?:-(\d{3,5}))?元?", text)
+    if yuan:
+        high = yuan.group(2) or yuan.group(1)
+        return int(high)
+
+    return 0
+
+
+def classify_job_kind(job: Job) -> str:
+    text = " ".join([job.title, job.salary, job.experience, " ".join(job.tags)])
+    if "实习" in text or "元/天" in job.salary:
+        return "实习"
+    return "全职"
+
+
 def build_html(jobs: list[Job]) -> Path:
     groups = grouped_jobs(jobs)
     out = OUTPUT_DIR / "张梦玲-高薪岗位投递手册.html"
     rows = []
     for job in jobs:
+        salary_value = salary_monthly_value(job.salary)
+        kind = classify_job_kind(job)
         rows.append(
             f"""
-<tr>
+<tr data-city="{html.escape(job.city)}" data-kind="{html.escape(kind)}" data-salary="{salary_value}" data-score="{job.score}">
   <td>{job.score}</td>
   <td>{html.escape(job.city)}</td>
-  <td><a href="{html.escape(job.url)}">{html.escape(job.title)}</a><br><span>{html.escape(job.company)}</span></td>
+  <td><a href="{html.escape(job.url)}" target="_blank" rel="noopener noreferrer">{html.escape(job.title)}</a><br><span>{html.escape(job.company)}</span></td>
+  <td>{html.escape(kind)}</td>
   <td>{html.escape(job.salary)}</td>
   <td>{html.escape(job.location)}<br><span>{html.escape(job.experience)} / {html.escape(job.degree)}</span></td>
   <td>{html.escape("；".join(job.reasons))}</td>
@@ -409,6 +457,10 @@ p{{line-height:1.7;color:#4a5568;}}
 .card{{background:#eef4f8;border:1px solid #d8e2ec;border-radius:8px;padding:14px;}}
 .card strong{{display:block;font-size:30px;margin-top:8px;color:#175d7a;}}
 .note{{background:#fff7e6;border:1px solid #efd7a0;border-radius:8px;padding:14px 18px;margin-top:18px;}}
+.toolbar{{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:white;border:1px solid #dfe5ed;border-radius:8px;padding:14px;margin-top:16px;}}
+.toolbar label{{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#4a5568;min-width:150px;}}
+.toolbar select{{height:36px;border:1px solid #cbd5df;border-radius:6px;background:#fff;color:#172033;padding:0 10px;font-size:14px;}}
+.count{{margin-left:auto;color:#175d7a;font-weight:700;white-space:nowrap;}}
 table{{width:100%;border-collapse:collapse;background:white;border:1px solid #dfe5ed;margin-top:16px;}}
 th,td{{border-bottom:1px solid #e7ebf0;padding:10px 12px;text-align:left;vertical-align:top;font-size:14px;}}
 th{{background:#edf3f7;color:#17384f;}}
@@ -433,9 +485,32 @@ ol li{{margin:7px 0;}}
   <li>前端/小程序/Node 只投实习、初级、项目助理型岗位，避免纯重开发岗位。</li>
 </ol>
 <h2>可投岗位清单（{len(jobs)} 个）</h2>
-<table>
-<thead><tr><th>分数</th><th>城市</th><th>岗位/公司</th><th>薪资</th><th>地点/要求</th><th>为什么适合</th></tr></thead>
-<tbody>{''.join(rows)}</tbody>
+<div class="toolbar" aria-label="岗位筛选">
+  <label>城市
+    <select id="cityFilter">
+      <option value="all">全部城市</option>
+      {''.join(f'<option value="{html.escape(city)}">{html.escape(city)}</option>' for city in CITIES)}
+    </select>
+  </label>
+  <label>类型
+    <select id="kindFilter">
+      <option value="all">实习 + 全职</option>
+      <option value="实习">只看实习</option>
+      <option value="全职">只看全职</option>
+    </select>
+  </label>
+  <label>排序
+    <select id="sortSelect">
+      <option value="score_desc">匹配度从高到低</option>
+      <option value="salary_desc">薪资从高到低</option>
+      <option value="salary_asc">薪资从低到高</option>
+    </select>
+  </label>
+  <span class="count" id="visibleCount">当前显示 {len(jobs)} / {len(jobs)} 个岗位</span>
+</div>
+<table id="jobsTable">
+<thead><tr><th>分数</th><th>城市</th><th>岗位/公司</th><th>类型</th><th>薪资</th><th>地点/要求</th><th>为什么适合</th></tr></thead>
+<tbody id="jobsBody">{''.join(rows)}</tbody>
 </table>
 <h2>反爬与受限平台处理</h2>
 <p>本手册只收录已验证能从公开页面读取岗位卡片的智联招聘结果。BOSS、拉勾、前程无忧、猎聘等平台需要登录态浏览器或动态渲染验证，未验证前只作为备用入口，不把不可验证岗位混进清单。</p>
@@ -444,6 +519,53 @@ ol li{{margin:7px 0;}}
 <tbody>{''.join(f"<tr><td>{html.escape(name)}</td><td>{html.escape(info['status'])}</td><td>{html.escape(info['action'])}</td></tr>" for name, info in PLATFORM_POLICY.items())}</tbody>
 </table>
 </main>
+<script>
+const jobsBody = document.getElementById("jobsBody");
+const rows = Array.from(jobsBody.querySelectorAll("tr"));
+const cityFilter = document.getElementById("cityFilter");
+const kindFilter = document.getElementById("kindFilter");
+const sortSelect = document.getElementById("sortSelect");
+const visibleCount = document.getElementById("visibleCount");
+
+function dataNumber(row, name) {{
+  return Number(row.dataset[name] || "0");
+}}
+
+function applyFilters() {{
+  const city = cityFilter.value;
+  const kind = kindFilter.value;
+  const sort = sortSelect.value;
+  const visible = rows.filter((row) => {{
+    const cityOk = city === "all" || row.dataset.city === city;
+    const kindOk = kind === "all" || row.dataset.kind === kind;
+    return cityOk && kindOk;
+  }});
+
+  visible.sort((a, b) => {{
+    if (sort === "salary_desc") {{
+      return dataNumber(b, "salary") - dataNumber(a, "salary") || dataNumber(b, "score") - dataNumber(a, "score");
+    }}
+    if (sort === "salary_asc") {{
+      return dataNumber(a, "salary") - dataNumber(b, "salary") || dataNumber(b, "score") - dataNumber(a, "score");
+    }}
+    return dataNumber(b, "score") - dataNumber(a, "score") || dataNumber(b, "salary") - dataNumber(a, "salary");
+  }});
+
+  rows.forEach((row) => {{
+    row.style.display = "none";
+  }});
+  visible.forEach((row) => {{
+    row.style.display = "";
+    jobsBody.appendChild(row);
+  }});
+  visibleCount.textContent = "当前显示 " + visible.length + " / " + rows.length + " 个岗位";
+}}
+
+[cityFilter, kindFilter, sortSelect].forEach((control) => {{
+  control.addEventListener("change", applyFilters);
+}});
+applyFilters();
+</script>
 </body>
 </html>"""
     out.write_text(html_text, encoding="utf-8")
